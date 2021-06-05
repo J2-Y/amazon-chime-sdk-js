@@ -248,7 +248,7 @@ export class DemoMeetingApp
   meeting: string | null = null;
   name: string | null = null;
   voiceConnectorId: string | null = null;
-  sipURI: string | null = null;
+  // sipURI: string | null = null;
   region: string | null = null;
   meetingSession: MeetingSession | null = null;
   priorityBasedDownlinkPolicy: VideoPriorityBasedPolicy | null = null;
@@ -424,11 +424,17 @@ export class DemoMeetingApp
 
   initParameters(): void {
     const meeting = new URL(window.location.href).searchParams.get('m');
+    const meetingName = new URL(window.location.href).searchParams.get('n');
+    const lectureTitle = new URL(window.location.href).searchParams.get('t');
+
     if (meeting) {
       (document.getElementById('inputMeeting') as HTMLInputElement).value = meeting;
-      (document.getElementById('inputName') as HTMLInputElement).focus();
+      (document.getElementById('inputName') as HTMLInputElement).value = meetingName;
+      (document.getElementById('inputTitle') as HTMLHeadingElement).innerText = lectureTitle;
     } else {
-      (document.getElementById('inputMeeting') as HTMLInputElement).focus();
+      // (document.getElementById('inputMeeting') as HTMLInputElement).focus();
+      // 돌려 보낸다
+      location.assign("http://www.mozilla.org");
     }
   }
 
@@ -585,58 +591,69 @@ export class DemoMeetingApp
       }
     });
 
-    document.getElementById('to-sip-flow').addEventListener('click', e => {
+    document.getElementById('noneAuthenticate').addEventListener('click', e => {
       e.preventDefault();
-      this.switchToFlow('flow-sip-authenticate');
+      // const x = confirm('현재 브라우저가 종료됩니다.');
+      // if(x) {
+      //   window.open('','_parent','');
+      //   window.close();
+      // }
+      location.assign("http://www.mozilla.org");
+
     });
 
-    document.getElementById('form-sip-authenticate').addEventListener('submit', e => {
-      e.preventDefault();
-      this.meeting = (document.getElementById('sip-inputMeeting') as HTMLInputElement).value;
-      this.voiceConnectorId = (document.getElementById(
-        'voiceConnectorId'
-      ) as HTMLInputElement).value;
+    // document.getElementById('to-sip-flow').addEventListener('click', e => {
+    //   e.preventDefault();
+    //   this.switchToFlow('flow-sip-authenticate');
+    // });
 
-      AsyncScheduler.nextTick(
-        async (): Promise<void> => {
-          this.showProgress('progress-authenticate');
-          const region = this.region || 'us-east-1';
-          try {
-            const response = await fetch(
-              `${DemoMeetingApp.BASE_URL}join?title=${encodeURIComponent(
-                this.meeting
-              )}&name=${encodeURIComponent(DemoMeetingApp.DID)}&region=${encodeURIComponent(
-                region
-              )}`,
-              {
-                method: 'POST',
-              }
-            );
-            const json = await response.json();
-            const joinToken = json.JoinInfo.Attendee.Attendee.JoinToken;
-            this.sipURI = `sip:${DemoMeetingApp.DID}@${this.voiceConnectorId};transport=tls;X-joinToken=${joinToken}`;
-            this.switchToFlow('flow-sip-uri');
-          } catch (error) {
-            (document.getElementById(
-              'failed-meeting'
-            ) as HTMLDivElement).innerText = `Meeting ID: ${this.meeting}`;
-            (document.getElementById('failed-meeting-error') as HTMLDivElement).innerText =
-              error.message;
-            this.switchToFlow('flow-failed-meeting');
-            return;
-          }
-          const sipUriElement = document.getElementById('sip-uri') as HTMLInputElement;
-          sipUriElement.value = this.sipURI;
-          this.hideProgress('progress-authenticate');
-        }
-      );
-    });
+    // document.getElementById('form-sip-authenticate').addEventListener('submit', e => {
+    //   e.preventDefault();
+    //   this.meeting = (document.getElementById('sip-inputMeeting') as HTMLInputElement).value;
+    //   this.voiceConnectorId = (document.getElementById(
+    //     'voiceConnectorId'
+    //   ) as HTMLInputElement).value;
 
-    document.getElementById('copy-sip-uri').addEventListener('click', () => {
-      const sipUriElement = document.getElementById('sip-uri') as HTMLInputElement;
-      sipUriElement.select();
-      document.execCommand('copy');
-    });
+    //   AsyncScheduler.nextTick(
+    //     async (): Promise<void> => {
+    //       this.showProgress('progress-authenticate');
+    //       const region = this.region || 'us-east-1';
+    //       try {
+    //         const response = await fetch(
+    //           `${DemoMeetingApp.BASE_URL}join?title=${encodeURIComponent(
+    //             this.meeting
+    //           )}&name=${encodeURIComponent(DemoMeetingApp.DID)}&region=${encodeURIComponent(
+    //             region
+    //           )}`,
+    //           {
+    //             method: 'POST',
+    //           }
+    //         );
+    //         const json = await response.json();
+    //         const joinToken = json.JoinInfo.Attendee.Attendee.JoinToken;
+    //         this.sipURI = `sip:${DemoMeetingApp.DID}@${this.voiceConnectorId};transport=tls;X-joinToken=${joinToken}`;
+    //         this.switchToFlow('flow-sip-uri');
+    //       } catch (error) {
+    //         (document.getElementById(
+    //           'failed-meeting'
+    //         ) as HTMLDivElement).innerText = `Meeting ID: ${this.meeting}`;
+    //         (document.getElementById('failed-meeting-error') as HTMLDivElement).innerText =
+    //           error.message;
+    //         this.switchToFlow('flow-failed-meeting');
+    //         return;
+    //       }
+    //       const sipUriElement = document.getElementById('sip-uri') as HTMLInputElement;
+    //       sipUriElement.value = this.sipURI;
+    //       this.hideProgress('progress-authenticate');
+    //     }
+    //   );
+    // });
+
+    // document.getElementById('copy-sip-uri').addEventListener('click', () => {
+    //   const sipUriElement = document.getElementById('sip-uri') as HTMLInputElement;
+    //   sipUriElement.select();
+    //   document.execCommand('copy');
+    // });
 
     const audioInput = document.getElementById('audio-input') as HTMLSelectElement;
     audioInput.addEventListener('change', async (_ev: Event) => {
@@ -1995,7 +2012,7 @@ export class DemoMeetingApp
 
   async populateVideoInputList(): Promise<void> {
     const genericName = 'Camera';
-    const additionalDevices = ['None', 'Blue', 'SMPTE Color Bars'];
+    const additionalDevices = ['Blue', 'Gray', 'SMPTE Color Bars']; // 'None'
     this.populateDeviceList(
       'video-input',
       genericName,
@@ -2304,6 +2321,10 @@ export class DemoMeetingApp
   private videoInputSelectionToIntrinsicDevice(value: string): Device {
     if (value === 'Blue') {
       return DefaultDeviceController.synthesizeVideoDevice('blue');
+    }
+
+    if (value === 'Gray') {
+      return DefaultDeviceController.synthesizeVideoDevice('gray');
     }
 
     if (value === 'SMPTE Color Bars') {
