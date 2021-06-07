@@ -41,7 +41,7 @@ import {
   SimulcastLayers,
   TargetDisplaySize,
   TimeoutScheduler,
-  Versioning,
+  // Versioning,
   VideoFrameProcessor,
   VideoInputDevice,
   VideoPreference,
@@ -271,7 +271,7 @@ export class DemoMeetingApp
 
   buttonStates: { [key: string]: boolean } = {
     'button-microphone': true,
-    'button-camera': false,
+    'button-camera': false,  // init false
     'button-speaker': true,
     'button-content-share': false,
     'button-pause-content-share': false,
@@ -379,7 +379,8 @@ export class DemoMeetingApp
     }
 
     (document.getElementById('sdk-version') as HTMLSpanElement).innerText =
-      'amazon-chime-sdk-js@' + Versioning.sdkVersion;
+      'support by DIDICAST';
+    // 'amazon-chime-sdk-js@' + Versioning.sdkVersion;
     this.initEventListeners();
     this.initParameters();
     this.setMediaRegion();
@@ -520,18 +521,21 @@ export class DemoMeetingApp
           (document.getElementById(
             'meeting-id'
           ) as HTMLSpanElement).innerText = `${this.meeting} (${this.region})`;
-          (document.getElementById(
-            'chime-meeting-id'
-          ) as HTMLSpanElement).innerText = `Meeting ID: ${chimeMeetingId}`;
+          // (document.getElementById(
+          //   'chime-meeting-id'
+          // ) as HTMLSpanElement).innerText = `Meeting ID: ${chimeMeetingId}`;
+
           (document.getElementById(
             'mobile-chime-meeting-id'
           ) as HTMLSpanElement).innerText = `Meeting ID: ${chimeMeetingId}`;
           (document.getElementById(
             'mobile-attendee-id'
           ) as HTMLSpanElement).innerText = `Attendee ID: ${this.meetingSession.configuration.credentials.attendeeId}`;
-          (document.getElementById(
-            'desktop-attendee-id'
-          ) as HTMLSpanElement).innerText = `Attendee ID: ${this.meetingSession.configuration.credentials.attendeeId}`;
+          
+          // (document.getElementById(
+          //   'desktop-attendee-id'
+          // ) as HTMLSpanElement).innerText = `Attendee ID: ${this.meetingSession.configuration.credentials.attendeeId}`;
+
           (document.getElementById('info-meeting') as HTMLSpanElement).innerText = this.meeting;
           (document.getElementById('info-name') as HTMLSpanElement).innerText = this.name;
 
@@ -1148,49 +1152,49 @@ export class DemoMeetingApp
   }
 
   metricsDidReceive(clientMetricReport: ClientMetricReport): void {
-    const metricReport = clientMetricReport.getObservableMetrics();
+    // const metricReport = clientMetricReport.getObservableMetrics();
     this.videoMetricReport = clientMetricReport.getObservableVideoMetrics();
-    if (
-      typeof metricReport.availableSendBandwidth === 'number' &&
-      !isNaN(metricReport.availableSendBandwidth)
-    ) {
-      (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Uplink Bandwidth: ' +
-        String(metricReport.availableSendBandwidth / 1000) +
-        ' Kbps';
-    } else if (
-      typeof metricReport.availableOutgoingBitrate === 'number' &&
-      !isNaN(metricReport.availableOutgoingBitrate)
-    ) {
-      (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Uplink Bandwidth: ' +
-        String(metricReport.availableOutgoingBitrate / 1000) +
-        ' Kbps';
-    } else {
-      (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Uplink Bandwidth: Unknown';
-    }
+    // if (
+    //   typeof metricReport.availableSendBandwidth === 'number' &&
+    //   !isNaN(metricReport.availableSendBandwidth)
+    // ) {
+    //   (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Uplink Bandwidth: ' +
+    //     String(metricReport.availableSendBandwidth / 1000) +
+    //     ' Kbps';
+    // } else if (
+    //   typeof metricReport.availableOutgoingBitrate === 'number' &&
+    //   !isNaN(metricReport.availableOutgoingBitrate)
+    // ) {
+    //   (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Uplink Bandwidth: ' +
+    //     String(metricReport.availableOutgoingBitrate / 1000) +
+    //     ' Kbps';
+    // } else {
+    //   (document.getElementById('video-uplink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Uplink Bandwidth: Unknown';
+    // }
 
-    if (
-      typeof metricReport.availableReceiveBandwidth === 'number' &&
-      !isNaN(metricReport.availableReceiveBandwidth)
-    ) {
-      (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Downlink Bandwidth: ' +
-        String(metricReport.availableReceiveBandwidth / 1000) +
-        ' Kbps';
-    } else if (
-      typeof metricReport.availableIncomingBitrate === 'number' &&
-      !isNaN(metricReport.availableIncomingBitrate)
-    ) {
-      (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Downlink Bandwidth: ' +
-        String(metricReport.availableIncomingBitrate / 1000) +
-        ' Kbps';
-    } else {
-      (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
-        'Available Downlink Bandwidth: Unknown';
-    }
+    // if (
+    //   typeof metricReport.availableReceiveBandwidth === 'number' &&
+    //   !isNaN(metricReport.availableReceiveBandwidth)
+    // ) {
+    //   (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Downlink Bandwidth: ' +
+    //     String(metricReport.availableReceiveBandwidth / 1000) +
+    //     ' Kbps';
+    // } else if (
+    //   typeof metricReport.availableIncomingBitrate === 'number' &&
+    //   !isNaN(metricReport.availableIncomingBitrate)
+    // ) {
+    //   (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Downlink Bandwidth: ' +
+    //     String(metricReport.availableIncomingBitrate / 1000) +
+    //     ' Kbps';
+    // } else {
+    //   (document.getElementById('video-downlink-bandwidth') as HTMLSpanElement).innerText =
+    //     'Available Downlink Bandwidth: Unknown';
+    // }
 
     this.isButtonOn('button-video-stats') && this.showVideoWebRTCStats(this.videoMetricReport);
   }

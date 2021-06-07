@@ -10,10 +10,10 @@
 
 <div id="flow-fatal" class="flow">
   <div style="vertical-align: middle; text-align: left; width: 40%; margin: 10em 30% 10em 30%;">
-  <h1>Fatal error</h1>
-  <p>이게 보이면 심각합니다.</p>
-  <p>필립에게 연락바랍니다.</p>
-  <code id="stack"></code>
+    <h1>Fatal error</h1>
+    <p>이게 보이면 심각합니다.</p>
+    <p>필립에게 연락바랍니다.</p>
+    <code id="stack"></code>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
   <div class="text-muted" style="position:fixed;right:3px;bottom:3px" id="sdk-version"></div>
   <div class="container">
     <form id="form-authenticate">
-      <h1 class="h3 mb-3 font-weight-normal">라이브 강의</h1>
+      <h1 class="h3 mb-3" style="font-size: 3rem;">라이브 강의</h1>
       <div class="row mt-3">
         <label for="inputMeeting" class="sr-only">Meeting Title</label>
         <input type="name" id="inputMeeting" class="form-control" placeholder="Meeting Title" readonly="readonly" hidden>
@@ -112,7 +112,7 @@
 -->
       <div class="row mt-3">
         <div id="progress-authenticate" class="w-100 progress progress-hidden">
-          <div class="w-100 progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="w-100 progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </form>
@@ -145,32 +145,38 @@
 
 <!-- Failure card if meeting is invalid -->
 
-<div id="flow-failed-meeting" class="flow">
+<div id="flow-failed-meeting" class="flow" style="color: black;">
   <div class="container">
     <form id="form-failed-meeting">
-      <div class="card border-warning mb-3" style="max-width: 20rem;">
+      <div class="card border-warning mb-3" style="max-width: 31rem;">
         <div id="failed-meeting" class="card-header"></div>
         <div class="card-body">
-          <h4 class="card-title">Unable to find meeting</h4>
-          <p class="card-text">There was an issue finding that meeting. The meeting may have already ended, or your authorization may have expired.</p>
+          <!-- Unable to find meeting -->
+          <h4 class="card-title">비정상적인 접근입니다.</h4> 
+          <!-- There was an issue finding that meeting. The meeting may have already ended, or your authorization may have expired. -->
+          <p class="card-text">이미 참여한 강의이거나, 종료된 강의입니다.</p>
           <small id="failed-meeting-error" class="text-muted"></small>
         </div>
       </div>
-      <button class="btn btn-lg btn-outline-warning btn-block" type="submit">OK</button>
+      <button class="btn btn-lg btn-outline-warning btn-block" type="submit">확인</button>
     </form>
   </div>
 </div>
 
 <!-- Prompt for permission to get access to device labels -->
 
-<div id="flow-need-permission" class="flow">
+<div id="flow-need-permission" class="flow" style="color: black;">
   <div class="container">
     <form id="form-need-permission">
-      <div class="card border-info mb-3" style="max-width: 20rem;">
-        <div class="card-header">Permissions check</div>
+      <!-- class="card border-info mb-3" -->
+      <div class="card border-info mb-3" style="max-width: 31rem;">
+        <!-- Permissions check -->
+        <div class="card-header">권한 요청 안내</div>
         <div class="card-body">
-          <h4 class="card-title">Unable to get device labels</h4>
-          <p class="card-text">In order to select media devices, we need to do a quick permissions check of your mic and camera. When the pop-up appears, choose <b>Allow</b>.</p>
+          <!-- Unable to get device labels -->
+          <h4 class="card-title">미디어 장치에 접근할 수 없습니다.</h4>
+          <!-- In order to select media devices, we need to do a quick permissions check of your mic and camera. When the pop-up appears, choose <b>Allow</b>. -->
+          <p class="card-text">'마이크/카메라'를 사용하실려면 '마이크/카메라' 접근권한을 허용해야 합니다. 팝업 창이 나타나면 <b>허용</b>을 선택해주세요.</p>
         </div>
       </div>
     </form>
@@ -196,6 +202,7 @@
 <!-- Device management and preview screen -->
 
 <div id="flow-devices" class="flow">
+  <div class="text-muted " style="position:fixed;right:3px;bottom:3px">support by DIDICAST</div>
   <div class="container">
     <form id="form-devices">
       <h1 class="h3 mb-3 font-weight-normal text-center">장치 선택</h1>
@@ -206,14 +213,16 @@
         </div>
       </div> 
 
+<!-- 
       <div class="row mt-3">
         <div class="visible">...이거 보이나</div>
         <div class="invisible">...안 보이나</div>
       </div>
+ -->
 
       <div class="row mt-3">
         <div class="col-12 col-sm-8">
-          <label for="audio-input block">Microphone</label>
+          <label for="audio-input block">마이크</label>
           <select id="audio-input" class="custom-select" style="width:100%"></select>
         </div>
 
@@ -225,6 +234,7 @@
         </div>
       </div>
 
+      <!-- class .hidden 처리 -->
       <div class="row mt-3">
         <div id="voice-focus-setting" class="col-12 col-sm-8 hidden">
           <input autocomplete="off" type="checkbox" id="add-voice-focus"></input>
@@ -258,7 +268,7 @@
           <select id="audio-output" class="custom-select" style="width:100%"></select>
         </div>
         <div class="col-sm-4">
-          <button id="button-test-sound" class="btn btn-outline-secondary btn-block h-50 d-sm-block" style="margin-top:2rem">스피커 테스트</button>
+          <button id="button-test-sound" class="btn btn-outline-light btn-block h-50 d-sm-block" style="margin-top:2rem">스피커 테스트</button>
         </div>
       </div>
 
@@ -268,46 +278,69 @@
         </div>
       </div>
 
-      <div class="row mt-3">
+      <!-- class .hidden 처리 -->
+      <div class="row mt-3 hidden">
         <div class="col-lg">
-          <p>Ready to join meeting <b><span id="info-meeting"></span></b> as <b><span id="info-name"></span></b>.</p>
+          <!-- <p>Ready to join meeting <b><span id="info-meeting"></span></b> as <b><span id="info-name"></span></b>.</p> -->
+          <p class="invisible"><b><span id="info-meeting"></span></b> as <b><span id="info-name"></span></b></p>
+          <p>여기에 뭔가 멘트를 줘야할까요? 입장하세요? 입장해야 출석됩니다?</p>
         </div>
       </div>
 
     </form>
+
+    <!-- 진행바 진행바 신나는 노래 나도 한번 불러보자 -->
     <div id="progress-join" class="w-100 progress progress-hidden">
-      <div class="w-100 progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="w-100 progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
   </div>
 </div>
 
 <!-- In-meeting screen -->
 
-<div id="flow-meeting" class="flow" style="position:absolute;left:0;top:0;bottom:55px;right:0">
+<div id="flow-meeting" class="flow" style="position:absolute;left:0;top:0;bottom:55px;right:0;">
 
-  <div class="p-2 d-none d-sm-block align-items-end" style="position:fixed;right:0;bottom:0;left:0;">
+  <!-- 푸터 -->
+  <div class="text-muted " style="position:fixed;right:3px;bottom:3px">support by DIDICAST</div>
+
+  <div class="p-2 d-none d-sm-block align-items-end invisible" style="position:fixed;right:0;bottom:0;left:0;" >
     <div class="row align-items-end">
       <div class="col">
-        <div id="chime-meeting-id" class="text-muted"></div>
-        <div id="desktop-attendee-id" class="text-muted"></div>
+        <!-- .invisible 추가 -->
+        <!-- <div id="chime-meeting-id" class="text-muted invisible"></div> -->
+        <!-- <div id="desktop-attendee-id" class="text-mutedn invisible"></div> -->
+        <!-- <img src="../../../../docs/assets/images/logo-didicast.png" alt="logo"/> -->
       </div>
       <div class="col d-none d-lg-block">
-        <div id="video-uplink-bandwidth" class="text-muted text-right"></div>
-        <div id="video-downlink-bandwidth" class="text-muted text-right"></div>
+        <!-- .invisible 추가 -->
+        <!-- <div id="video-uplink-bandwidth" class="text-muted text-right invisible"></div> -->
+        <!-- <div id="video-downlink-bandwidth" class="text-muted text-right invisible"></div> -->
+        <!-- <img src="../../../../docs/assets/images/logo-didicaststudio.png" alt="logo"/> -->
       </div>
     </div>
   </div>
 
   <audio id="meeting-audio" style="display:none"></audio>
+
+  <!-- 헤더, 화면, 채팅, 인원 감싸는 중 -->
   <div id="meeting-container" class="container-fluid h-100" style="display:flex; flex-flow:column">
+    
+    <!-- 상단 제목, 버튼 모음 -->
     <div class="row mb-3 mb-lg-0" style="flex: unset;">
       <div class="col-12 col-lg-3 order-1 order-lg-1 text-center text-lg-left">
         <div id="meeting-id" class="navbar-brand text-muted m-0 m-lg-2"></div>
         <div id="mobile-chime-meeting-id" class="text-muted d-block d-sm-none" style="font-size:0.65rem;"></div>
         <div id="mobile-attendee-id" class="text-muted d-block d-sm-none mb-2" style="font-size:0.65rem;"></div>
       </div>
+
+      <!-- 버튼 -->
       <div class="col-8 col-lg-6 order-2 order-lg-2 text-left text-lg-center">
         
+        <!-- 녹화 -->
+        <button id="button-record-self" type="button" class="btn btn-success mx-1 mx-xl-2 my-2" title="Record my audio and video" data-toggle="button" aria-pressed="false" autocomplete="off">
+          <svg><circle id="rec-svg" cx="10" cy="10" r="8" fill="red"></circle></svg>
+        </button>
+
         <!-- 마이크 -->
         <div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle microphone">
           <button id="button-microphone" type="button" class="btn btn-success" title="Toggle microphone">
@@ -334,8 +367,21 @@
           </div>
         </div>
 
-        <!-- 필터 -->
-        <div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Apply filter">
+        <!-- 스피커 -->
+        <div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle speaker">
+          <button id="button-speaker" type="button" class="btn btn-success" title="Toggle speaker">
+            ${require('../../node_modules/open-iconic/svg/volume-low.svg').default}
+          </button>
+          <div class="btn-group" role="group">
+            <button id="button-speaker-drop" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select speaker"></button>
+            <div id="dropdown-menu-speaker" class="dropdown-menu dropdown-menu-right" aria-labelledby="button-speaker-drop" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="#">Default speaker</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 필터 .hidden 추가 -->
+        <div class="btn-group mx-1 mx-xl-2 my-2 hidden" role="group" aria-label="Apply filter">
           <button id="button-video-filter" type="button" class="btn btn-success" title="Apply filter">
             ${require('../../node_modules/open-iconic/svg/contrast.svg').default}
           </button>
@@ -362,39 +408,26 @@
             </div>
           </div>
         </div>
-
+        
+        <!-- 화면 공유 중이면 까만색으로 변함 -->
         <button id="button-pause-content-share" type="button" class="btn btn-success mx-1 mx-xl-2 my-2" title="Pause and unpause content share">
           ${require('../../node_modules/open-iconic/svg/media-pause.svg').default}
         </button>
 
-        <div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle speaker">
-          <button id="button-speaker" type="button" class="btn btn-success" title="Toggle speaker">
-            ${require('../../node_modules/open-iconic/svg/volume-low.svg').default}
-          </button>
-          <div class="btn-group" role="group">
-            <button id="button-speaker-drop" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select speaker"></button>
-            <div id="dropdown-menu-speaker" class="dropdown-menu dropdown-menu-right" aria-labelledby="button-speaker-drop" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <a class="dropdown-item" href="#">Default speaker</a>
-            </div>
-          </div>
-        </div>
-
-        <button id="button-video-stats" type="button" class="btn btn-success mx-1 mx-xl-2 my-2" title="Toggle video WebRTC stats display" data-toggle="button" aria-pressed="false" autocomplete="off">
+        <!-- 무엇일까요? -->
+        <button id="button-video-stats" type="button" class="btn btn-success mx-1 mx-xl-2 my-2 invisible" title="Toggle video WebRTC stats display" data-toggle="button" aria-pressed="false" autocomplete="off" hidden>
           ${require('../../node_modules/open-iconic/svg/signal.svg').default}
-        </button>
-
-        <button id="button-record-self" type="button" class="btn btn-success mx-1 mx-xl-2 my-2" title="Record my audio and video" data-toggle="button" aria-pressed="false" autocomplete="off">
-          <svg><circle id="rec-svg" cx="10" cy="10" r="8" fill="red"></circle></svg>
         </button>
 
       </div>
 
+      <!-- 미팅 나가기 (개별) -->
       <div class="col-4 col-lg-3 order-3 order-lg-3 text-right text-lg-right">
         <button id="button-meeting-leave" type="button" class="btn btn-outline-success mx-1 mx-xl-2 my-2 px-4" title="Leave meeting">
           ${require('../../node_modules/open-iconic/svg/account-logout.svg').default}
         </button>
 
-        <!-- 추후 관리자는 보이게 -->
+        <!-- 추후 관리자는 보이게 (방폭) -->
         <button id="button-meeting-end" type="button" class="btn btn-outline-danger mx-1 mx-xl-2 my-2 px-4" title="End meeting" hidden>
           ${require('../../node_modules/open-iconic/svg/power-standby.svg').default}
         </button>
@@ -402,16 +435,20 @@
       </div>
 
     </div>
+
+    <!-- 화면, 채팅, 인원 감싸는 중 -->
     <div id="roster-tile-container" class="row flex-sm-grow-1 overflow-hidden h-100" style="flex: unset;">
       
-      <!-- 채팅 -->
+      <!-- 인원, 채팅 -->
       <div id="roster-message-container" class="d-flex flex-column col-12 col-sm-5 col-md-4 col-lg-3 h-100">
-        <div class="bs-component" style="flex: 1 1 auto; overflow-y: auto; height: 50%;">
-          <ul id="roster" class="list-group"></ul>
+        <!-- 인원 -->
+        <div class="bs-component" style="flex: 1 1 auto; overflow-y: auto; height: 50%; background-color: #fff;">
+          <ul id="roster" class="list-group" style="color: black;"></ul>
         </div>
+        <!-- 채팅 -->
         <div class="message d-flex flex-column pt-3" style="flex: 1 1 auto; overflow: hidden; height: 50%;">
           <div class="list-group receive-message" id="receive-message" style="flex: 1 1 auto; overflow-y: auto;
-            border: 1px solid rgba(0, 0, 0, 0.125); background-color: #fff"></div>
+            border: 1px solid rgba(0, 0, 0, 0.125); background-color: #fff; color: black;"></div>
           <div class="input-group send-message" style="display:flex;flex:0 0 auto;margin-top:0.2rem">
             <textarea class="form-control shadow-none" id="send-message" rows="1" placeholder="Type a message (markdown supported)" style="display:inline-block; width:100%;
               resize:none; border-color: rgba(0, 0, 0, 0.125); outline: none; padding-left: 1.4rem"></textarea>
@@ -574,18 +611,21 @@
 
 <!-- Failure card if meeting cannot be joined -->
 
-<div id="flow-failed-join" class="flow">
+<div id="flow-failed-join" class="flow" style="color: black;">
   <div class="container">
     <form id="form-failed-join">
-      <div class="card border-warning mb-3" style="max-width: 20rem;">
+      <div class="card border-warning mb-3" style="max-width: 31rem;">
         <div id="failed-join" class="card-header"></div>
         <div class="card-body">
-          <h4 class="card-title">Unable to join meeting</h4>
-          <p class="card-text">There was an issue joining that meeting. Check your connectivity and try again.</p>
+          <!-- Unable to join meeting -->
+          <h4 class="card-title">인터넷 연결 상태가 불안합니다.</h4>
+
+          <!-- There was an issue joining that meeting. Check your connectivity and try again. -->
+          <p class="card-text">강의 참여 중 문제가 발생하였습니다. 인터넷 연결을 확인 후 다시 시도해주세요.</p>
           <small id="failed-join-error" class="text-muted"></small>
         </div>
       </div>
-      <button class="btn btn-lg btn-outline-warning btn-block" type="submit">OK</button>
+      <button class="btn btn-lg btn-outline-warning btn-block" type="submit">확인</button>
     </form>
   </div>
 </div>
